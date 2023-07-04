@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+<style>
+    body{
+        background-color: rgb(45, 45, 45);
+        color: white;
+    }
+    .container {
+        width: 750px;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 5%;
+        background-color: #988c8c;
+        padding: 2% 5%;
+        border-radius: 60px;
+    }
+
+    .online{
+        color: green;
+    }
+
+    .down{
+        color: red;
+    }
+
+
+    .container .info table{
+        width: auto;
+        margin: 0 auto;
+        border-style: none
+    }
+
+    .container .info tr {
+        text-align: left;
+        margin: 0 auto;
+        padding-left: 20px;
+        border-radius: 60px;
+    }
+
+    .container .info tr td {
+        text-align: left;
+        margin: 0 auto;
+        line-height: 2.3
+    }
+    .container .info th,td{
+        text-align: left;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .container .info p{
+        color: white;
+    }
+    .container .info h1{
+        color: white;
+    }
+    .container .controler .back{
+        height: auto;
+        width: 75px;
+        line-height: 36px;
+        text-align: center;
+        border-radius: 60px;
+        border: none;
+        background-color: #cbc978;
+        color: black;
+        float: left;
+    }
+    .container .controler div:active{
+        transform: scale(0.95);
+        background-color: beige;
+    }
+
+    .container .controler .refresh{
+        height: auto;
+        width: 75px;
+        line-height: 36px;
+        text-align: center;
+        border-radius: 60px;
+        border: none;
+        background-color: #cbc978;
+        color: black;
+        float: right;
+    }
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="container">
+        <div class="controler">
+            <input class="back" type="button" value="返回" onclick="window.history.back()">
+            <input class="refresh" type="button" value="刷新" onclick="window.location.reload()">
+        </div>
+        <br/>
+        <div class="info">
+              <h1>{{ title }}</h1>
+        <p>当前时间为{{ now_time }}</p>
+        <p>当前轮询间隔为 {{ delay }}s</p>
+            <br/>
+        <div class="sheet">
+            <table>
+            <tr>
+                <th>网站</th>
+                <th>状态</th>
+                <th>上次更新时间</th>
+                <th>上次失联时间</th>
+                <th>加载用时</th>
+            </tr>
+            {% for item in page %}
+                <tr>
+                {% for status in item %}
+                    {% if status == "Online" %}
+                        <td><a class="online">{{ status }}</a></td>
+                    {% else %}
+                        {% if status == "Down" %}
+                            <td><a class="down">{{ status }}</a></td>
+                        {% else %}
+                            <td>{{ status }}</td>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
